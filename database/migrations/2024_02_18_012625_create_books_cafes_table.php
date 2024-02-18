@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('barista_cafes', function (Blueprint $table) {
+        Schema::create('books_cafes', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('user_id')->unique();
+            $table->uuid('books_id');
             $table->uuid('cafe_id');
+
+            $table->integer('quantity');
             $table->timestamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('barista_cafes');
+        Schema::dropIfExists('books_cafes');
     }
 };

@@ -6,12 +6,14 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\AddBookRequest;
+use App\Http\Resources\BookResource;
+use App\Models\Book;
 
 class BookController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth:api','role:toko_buku']);
+        $this->middleware(['auth:api','role:toko_buku'])->except('show');
     }
 
     public function addBooks(AddBookRequest $request) 
@@ -27,5 +29,11 @@ class BookController extends Controller
             'user_id' => $id_user,
         ]);
         return response(['message' => 'Book Added'], 200);
+    }
+
+    public function show() 
+    {
+        $books = Book::with('user')->get();
+        return BookResource::collection($books);
     }
 }
