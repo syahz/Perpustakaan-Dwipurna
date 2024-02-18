@@ -1,0 +1,618 @@
+{
+	"info": {
+		"_postman_id": "1d7e16cd-7615-40ca-abea-13b4b589bb3d",
+		"name": "Perpustakaan",
+		"description": "Dokumenasi ini menjelaskan tentang cara mengakses API Perpustakaan Dwipurna",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12664348"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "acc",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Gramedia",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "gramedia@email.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Gramedia123",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "Gramedia123",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "toko_buku",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://tes-api.local/api/register",
+							"protocol": "http",
+							"host": [
+								"tes-api",
+								"local"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						},
+						"description": "Endpoint untuk register user.\n\nfield role terdiri dari :\n\n_**\"toko_buku\"**_ : Suplier buku (gramedia, togamas)\n\n_**\"cafe\"**_ : Pemilik Cafe\n\n_**\"barista\"**_ : Barista pada sebuah cafe."
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "titikkoma@email.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "TitikKoma123",
+									"type": "text"
+								},
+								{
+									"key": "remember_me",
+									"value": "0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://tes-api.local/api/login",
+							"protocol": "http",
+							"host": [
+								"tes-api",
+								"local"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						},
+						"description": "Pada login diperlukan request parameter berupa email, password serta remember_me, remember_me digunakan jika user ingin session token JWT nya tidak ada durasi.\n\nEndpoint ini memiliki return berupa token JWT dengan contoh sebagai berikut\n\n`{ \"access_token\": \"TOKEN_JWT\",`\n\n`\"token_type\": \"bearer\",`\n\n`\"expires_in\": 3600`\n\n`}`"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vdGVzLWFwaS5sb2NhbC9hcGkvbG9naW4iLCJpYXQiOjE3MDgyMTgwMzAsImV4cCI6MTcwODIyMTYzMCwibmJmIjoxNzA4MjE4MDMwLCJqdGkiOiJxYk5SbUUxTFBOcDAwMkd0Iiwic3ViIjoiMTA1NGY1YjUtOWI1OC00NTYxLWFhNjUtOGU0NmVkZDFhOTUzIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyIsInJvbGUiOiJiYXJpc3RhIn0.rRIvzqemUw3gTd6ugRB6k5DMITWBj8z2KHzv2TxVEcA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://tes-api.local/api/logout",
+							"protocol": "http",
+							"host": [
+								"tes-api",
+								"local"
+							],
+							"path": [
+								"api",
+								"logout"
+							]
+						},
+						"description": "Endpoint untuk Logout user"
+					},
+					"response": []
+				}
+			],
+			"description": "Autentikasi (Auth)  \nEndpoint ini digunakan untuk melakukan Register, Login, dan Logout."
+		},
+		{
+			"name": "Cafe",
+			"item": [
+				{
+					"name": "addCafe",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vdGVzLWFwaS5sb2NhbC9hcGkvbG9naW4iLCJpYXQiOjE3MDgyMTYxMDgsImV4cCI6MTcwODIxOTcwOCwibmJmIjoxNzA4MjE2MTA4LCJqdGkiOiJhWTV3UmNhckpwSFVjQ2pDIiwic3ViIjoiNTcyNzQxMTQtOTlmYS00NjZjLTg2MjYtOTRmZGQ5ZmE5MDBhIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyIsInJvbGUiOiJjYWZlIn0.T-Sk2qK7MNWlcqCq_aXBqSK-6PKD2YpP_vCBul5ZlAM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Titik Koma",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "Jl. Araya No. 19A Jakarta 65312",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://tes-api.local/api/addCafe",
+							"protocol": "http",
+							"host": [
+								"tes-api",
+								"local"
+							],
+							"path": [
+								"api",
+								"addCafe"
+							]
+						},
+						"description": "Endpoint Untuk menambahkan detail cafe seperti nama cafe, lokasi"
+					},
+					"response": []
+				},
+				{
+					"name": "addMenu",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vdGVzLWFwaS5sb2NhbC9hcGkvbG9naW4iLCJpYXQiOjE3MDgyMTYxMDgsImV4cCI6MTcwODIxOTcwOCwibmJmIjoxNzA4MjE2MTA4LCJqdGkiOiJhWTV3UmNhckpwSFVjQ2pDIiwic3ViIjoiNTcyNzQxMTQtOTlmYS00NjZjLTg2MjYtOTRmZGQ5ZmE5MDBhIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyIsInJvbGUiOiJjYWZlIn0.T-Sk2qK7MNWlcqCq_aXBqSK-6PKD2YpP_vCBul5ZlAM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nama_menu",
+									"value": "Onion Ring",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "20000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://tes-api.local/api/addMenu",
+							"protocol": "http",
+							"host": [
+								"tes-api",
+								"local"
+							],
+							"path": [
+								"api",
+								"addMenu"
+							]
+						},
+						"description": "Endpoint untuk menambah menu dari setiap cafe"
+					},
+					"response": []
+				},
+				{
+					"name": "addBooksCafe",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vdGVzLWFwaS5sb2NhbC9hcGkvbG9naW4iLCJpYXQiOjE3MDgyMjAxMDEsImV4cCI6MTcwODIyMzcwMSwibmJmIjoxNzA4MjIwMTAxLCJqdGkiOiJMZVROQndoSXRJSUhMSVBQIiwic3ViIjoiNTcyNzQxMTQtOTlmYS00NjZjLTg2MjYtOTRmZGQ5ZmE5MDBhIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyIsInJvbGUiOiJjYWZlIn0.gwx561bbSbiJUbwk_M_QgPRkZEtYZKANYQiajKncino",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "books_id",
+									"value": "189c1c92-5901-4f63-a251-3658f4aa00c0",
+									"type": "text"
+								},
+								{
+									"key": "quantity",
+									"value": "5",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://tes-api.local/api/addBooksCafe",
+							"protocol": "http",
+							"host": [
+								"tes-api",
+								"local"
+							],
+							"path": [
+								"api",
+								"addBooksCafe"
+							]
+						},
+						"description": "Endpoint untuk cafe menambah buku baru dari data buku toko_buku\n\ndengan parameter books_id yang didapatkan dari endpoint getAllBooks dan quantity merupakan jumlah buku yang dipinjam cafe"
+					},
+					"response": []
+				},
+				{
+					"name": "getCafe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://tes-api.local/api/getCafe",
+							"protocol": "http",
+							"host": [
+								"tes-api",
+								"local"
+							],
+							"path": [
+								"api",
+								"getCafe"
+							]
+						},
+						"description": "Endpoint untuk menampilkan list semua cafe.\n\ndapat digunakan untuk menambah barista pada endpoint addBaristaCafe dengan mengambil id dari cafe"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoint ini digunakan Cafe untuk Menambah Buku dan Menambah Menu. Endpoint ini hanya dapat diakses oleh user yang telah login dengan role=\"_**cafe**_\""
+		},
+		{
+			"name": "Transaction",
+			"item": [
+				{
+					"name": "addTransaction",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"table_name\": \"Meja 10\",\r\n  \"orders\": [\r\n    {\r\n      \"menu_id\": \"a894bf8b-6a0e-4c0e-9348-2c83e6246f6f\",\r\n      \"quantity\": 7\r\n    },\r\n    {\r\n      \"menu_id\": \"cfead0d0-c846-4ee2-990d-90fc47e0f909\",\r\n      \"quantity\": 1\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://tes-api.local/api/addTransaction?cafeName=Titik Koma",
+							"protocol": "http",
+							"host": [
+								"tes-api",
+								"local"
+							],
+							"path": [
+								"api",
+								"addTransaction"
+							],
+							"query": [
+								{
+									"key": "cafeName",
+									"value": "Titik Koma"
+								}
+							]
+						},
+						"description": "- Endpoint untuk transaksi pada pelanggan.\n- params cafeName diisi sesuai nama cafe.\n- untuk melakukan transaksi pelanggan tidak perlu untuk login. hanya perlu memasukan table_name (seusai nama meja) lalu list ordernya.\n- endpoint ini nantinya dapat digunakan seperti qrcode, dimana pelanggan hanya perlu scan list menu sesuai nama cafe pada endpoint getMenubyID lalu melakukan transaksi dengan endpoint addTransaction.\n- return response dari endpoint ini berupa tiket_ruang_baca. jika pembelian >= 25.000 akan muncul random tiket ruang baca. jika <= 25.000 maka akan mengembalikan null\n    \n\n`{`\n\n`\"message\": \"Order has been placed\",`\n\n`\"transaction_id\": \"TRX2015498599\",`\n\n`\"tiket_ruang_baca\": null`\n\n`}`"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllTransactionByID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://tes-api.local/api/getAllTransaction/cf1097a5-19c4-4953-90ed-9c489a292b18",
+							"protocol": "http",
+							"host": [
+								"tes-api",
+								"local"
+							],
+							"path": [
+								"api",
+								"getAllTransaction",
+								"cf1097a5-19c4-4953-90ed-9c489a292b18"
+							]
+						},
+						"description": "Endpoint untuk Mendapatkan Semua list transaksi dengan parameter id_cafe"
+					},
+					"response": []
+				},
+				{
+					"name": "getTransactionByID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://tes-api.local/api/getTransaction/cf1097a5-19c4-4953-90ed-9c489a292b18",
+							"protocol": "http",
+							"host": [
+								"tes-api",
+								"local"
+							],
+							"path": [
+								"api",
+								"getTransaction",
+								"cf1097a5-19c4-4953-90ed-9c489a292b18"
+							]
+						},
+						"description": "Endpoint untuk Mendapatkan list transaksi yang memiliki status _**\"PENDING\"**_ dengan parameter id_cafe"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoint ini menambah transaksi dari pelanggan, mendapatkan semua data transaksi, dan mendapatkan data transaksi dengan status pending yang nantinya dapat di confirm barista pada endpoint confirmTransaction."
+		},
+		{
+			"name": "Toko Buku",
+			"item": [
+				{
+					"name": "addBook",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vdGVzLWFwaS5sb2NhbC9hcGkvbG9naW4iLCJpYXQiOjE3MDgyMTk0OTUsImV4cCI6MTcwODIyMzA5NSwibmJmIjoxNzA4MjE5NDk1LCJqdGkiOiJmOHlHU1pXU0xmWGZEd2pnIiwic3ViIjoiY2YzNzFlZmQtZDgyZi00Nzc1LWFmMzgtNjgxNjRlZDNjOWNiIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyIsInJvbGUiOiJ0b2tvX2J1a3UifQ.iBUdmpViCNcctvcPDBrlQ3Tdg3jIBI4WxCFSLu-xJ0k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "judul",
+									"value": "Cinta Tak Pernah Tepat Waktu",
+									"type": "text"
+								},
+								{
+									"key": "penulis",
+									"value": "Puthut EA",
+									"type": "text"
+								},
+								{
+									"key": "penerbit",
+									"value": "Mojok",
+									"type": "text"
+								},
+								{
+									"key": "tahun_terbit",
+									"value": "2005",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://tes-api.local/api/addBooks",
+							"protocol": "http",
+							"host": [
+								"tes-api",
+								"local"
+							],
+							"path": [
+								"api",
+								"addBooks"
+							]
+						},
+						"description": "Endpoint untuk toko_buku menambah buku baru"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllBooks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://tes-api.local/api/getAllBooks",
+							"protocol": "http",
+							"host": [
+								"tes-api",
+								"local"
+							],
+							"path": [
+								"api",
+								"getAllBooks"
+							]
+						},
+						"description": "Endpoint untuk Mendapatkan Semua list buku"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoint ini digunakan Toko Buku untuk Menambah Buku dan Menambah Menu.\n\nEndpoint ini hanya dapat diakses oleh user yang telah login dengan role=\"toko_buku\" kecuali _getAllBooks_"
+		},
+		{
+			"name": "Barista",
+			"item": [
+				{
+					"name": "confirmTransaction",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vdGVzLWFwaS5sb2NhbC9hcGkvbG9naW4iLCJpYXQiOjE3MDgyMTgwMzAsImV4cCI6MTcwODIyMTYzMCwibmJmIjoxNzA4MjE4MDMwLCJqdGkiOiJxYk5SbUUxTFBOcDAwMkd0Iiwic3ViIjoiMTA1NGY1YjUtOWI1OC00NTYxLWFhNjUtOGU0NmVkZDFhOTUzIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyIsInJvbGUiOiJiYXJpc3RhIn0.rRIvzqemUw3gTd6ugRB6k5DMITWBj8z2KHzv2TxVEcA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": \"VERIFIED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://tes-api.local/api/confirmTransaction/TRX9735863197",
+							"protocol": "http",
+							"host": [
+								"tes-api",
+								"local"
+							],
+							"path": [
+								"api",
+								"confirmTransaction",
+								"TRX9735863197"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addBaristaCafe",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vdGVzLWFwaS5sb2NhbC9hcGkvbG9naW4iLCJpYXQiOjE3MDgyMTgwMzAsImV4cCI6MTcwODIyMTYzMCwibmJmIjoxNzA4MjE4MDMwLCJqdGkiOiJxYk5SbUUxTFBOcDAwMkd0Iiwic3ViIjoiMTA1NGY1YjUtOWI1OC00NTYxLWFhNjUtOGU0NmVkZDFhOTUzIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyIsInJvbGUiOiJiYXJpc3RhIn0.rRIvzqemUw3gTd6ugRB6k5DMITWBj8z2KHzv2TxVEcA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "cafe_id",
+									"value": "cf1097a5-19c4-4953-90ed-9c489a292b18",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://tes-api.local/api/addBaristaCafe",
+							"protocol": "http",
+							"host": [
+								"tes-api",
+								"local"
+							],
+							"path": [
+								"api",
+								"addBaristaCafe"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoint yang hanya bisa diakses oleh role=\"_**barista**_\"\n\nendpoint confirmTransaction (untuk konfirmasi transaksi yang valuenya bisa VERIFIED / FAILED)\n\nendpoint addBaristaCafe untuk mensinkronisasi user dengan role barista dengan cafe mana dia bekerja."
+		}
+	]
+}
